@@ -1,6 +1,7 @@
 from pynput import keyboard
 import pyautogui
 import threading
+import time
 
 #  * Basic Variables *
 # These variables should be the only variables changed by a non technical user.
@@ -15,6 +16,9 @@ golden_cookie_priority = 2
 clicker_priority = 3
 shopping_priority = 4
 gardening_priority = 5
+
+# Shopping
+minutes_between_buys = 5
 
 # Stock Market Variables
 buy_under_price = 10
@@ -90,6 +94,8 @@ auto_shopping_click = False
 auto_gardening = False
 auto_gardening_click = False
 
+seconds_between_buys = minutes_between_buys * 60
+
 # clicker method automatically clicks the cookie.
 def auto_clicker():
 	global auto_click
@@ -116,48 +122,55 @@ def golden_cookie_search():
 # auto_shopping method automatically buys buildings and perks.
 # Currently does not work because of update.
 def auto_shop():
-	
-	#Antim. Condenser
-	pyautogui.click(x=1611, y=1028, button='left', clicks=10, interval=.1)
+        global clicking, auto_clicking, auto_shopping_click, seconds_between_buys
+        auto_shopping_click = True
+        while True:
+                if auto_shopping:
+                        time.sleep(seconds_between_buys)
+                        if auto_shopping_click & auto_shopping:
+                                clicking = False
+                                #Antim. Condenser
+                                pyautogui.click(x=1611, y=1028, button='left', clicks=10, interval=.1)
 
-	# Time Machine
-	pyautogui.click(x=1611, y=966, button='left', clicks=10, interval=.1)
+                                # Time Machine
+                                pyautogui.click(x=1611, y=966, button='left', clicks=10, interval=.1)
 
-	# Portal
-	pyautogui.click(x=1611, y=901, button='left', clicks=10, interval=.1)
+                                # Portal
+                                pyautogui.click(x=1611, y=901, button='left', clicks=10, interval=.1)
 
-	# Alchemy Lab
-	#pyautogui.click(x=1611, y=836, button='left', clicks=10, interval=.1)
+                                # Alchemy Lab
+                                #pyautogui.click(x=1611, y=836, button='left', clicks=10, interval=.1)
 
-	# Shipment
-	#pyautogui.click(x=1611, y=772, button='left', clicks=10, interval=.1)
+                                # Shipment
+                                #pyautogui.click(x=1611, y=772, button='left', clicks=10, interval=.1)
 
-	# Wizard Tower
-	#pyautogui.click(x=1611, y=711, button='left', clicks=10, interval=.1)
+                                # Wizard Tower
+                                #pyautogui.click(x=1611, y=711, button='left', clicks=10, interval=.1)
 
-	# Temple
-	#pyautogui.click(x=1611, y=645, button='left', clicks=10, interval=.1)
+                                # Temple
+                                #pyautogui.click(x=1611, y=645, button='left', clicks=10, interval=.1)
 
-	# Bank
-	#pyautogui.click(x=1611, y=580, button='left', clicks=10, interval=.1)
+                                # Bank
+                                #pyautogui.click(x=1611, y=580, button='left', clicks=10, interval=.1)
 
-	# Factory
-	#pyautogui.click(x=1611, y=517, button='left', clicks=10, interval=.1)
+                                # Factory
+                                #pyautogui.click(x=1611, y=517, button='left', clicks=10, interval=.1)
 
-	# Mine
-	#pyautogui.click(x=1611, y=449, button='left', clicks=10, interval=.1)
+                                # Mine
+                                #pyautogui.click(x=1611, y=449, button='left', clicks=10, interval=.1)
 
-	# Farm
-	#pyautogui.click(x=1611, y=393, button='left', clicks=10, interval=.1)
+                                # Farm
+                                #pyautogui.click(x=1611, y=393, button='left', clicks=10, interval=.1)
 
-	# Grandma
-	#pyautogui.click(x=1611, y=325, button='left', clicks=10, interval=.1)
-	
-	# Clicker
-	#pyautogui.click(x=1611, y=263, button='left', clicks=10, interval=.1)
+                                # Grandma
+                                #pyautogui.click(x=1611, y=325, button='left', clicks=10, interval=.1)
+                        
+                                # Clicker
+                                #pyautogui.click(x=1611, y=263, button='left', clicks=10, interval=.1)
 
-	# Perks
-	pyautogui.click(x=1392, y=150, button='left', clicks=10, interval=.1)
+                                # Perks
+                                pyautogui.click(x=1392, y=150, button='left', clicks=10, interval=.1)
+                                clicking = True
 
 
 # on_press method checks what key is pressed and gives it functionality.
@@ -277,7 +290,7 @@ auto_shopping_thread = threading.Thread(target=auto_shop, daemon=True)
 clicker_thread.start()
 #golden_cookie_search_thread.start()
 #auto_stock_market_thread.start()
-#auto_shopping_thread.start()
+auto_shopping_thread.start()
 
 # Listens for keyboard inputs.
 with keyboard.Listener(on_press=on_press) as listener:
