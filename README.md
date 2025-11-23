@@ -1,7 +1,7 @@
 # About
 Cookie-clicker-automation project is a project to automate all aspects of Cookie Clicker. The aspects which are automated are:
 - Clicking cookie
-- Shopping (Uncompatible with last update)
+- Shopping
 - Stock market (To be completed)
 - Golden cookies (To be completed)
 - Gardening (To be completed)
@@ -20,3 +20,4 @@ Cookie-clicker-automation project is a project to automate all aspects of Cookie
 - esc: quit program
 
 # How to Setup
+
