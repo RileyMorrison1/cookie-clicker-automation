@@ -1,10 +1,10 @@
+# Security Considerations
+This program has been discontinued because of security, this program allows your terminal to control your mouse and monitor you keyboard. It is being recreated on the Cookie Clicker steam workshop.
+
 # About
 Cookie-clicker-automation project is a project to automate all aspects of Cookie Clicker. The aspects which are automated are:
 - Clicking cookie
 - Shopping
-- Stock market (To be completed)
-- Golden cookies (To be completed)
-- Gardening (To be completed)
 
 # Default Key Configuration
 - 'q': auto clicker start
