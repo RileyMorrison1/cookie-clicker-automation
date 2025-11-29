@@ -18,7 +18,7 @@ shopping_priority = 4
 gardening_priority = 5
 
 # Shopping
-minutes_between_buys = 5
+minutes_between_buys = 1
 
 # Stock Market Variables
 buy_under_price = 10
@@ -124,157 +124,161 @@ def golden_cookie_search():
 def auto_shop():
         global clicking, auto_clicking, auto_shopping_click, seconds_between_buys
         auto_shopping_click = True
-        while True:
-                if auto_shopping:
-                        time.sleep(seconds_between_buys)
-                        if auto_shopping_click & auto_shopping:
-                                clicking = False
-                                #Antim. Condenser
-                                pyautogui.click(x=1611, y=1028, button='left', clicks=10, interval=.1)
+        
+        while auto_shopping:
+                clicking = False
+                #Antim. Condenser
+                pyautogui.click(x=1611, y=1028, button='left', clicks=10, interval=.1)
 
-                                # Time Machine
-                                pyautogui.click(x=1611, y=966, button='left', clicks=10, interval=.1)
+                # Time Machine
+                pyautogui.click(x=1611, y=966, button='left', clicks=10, interval=.1)
 
-                                # Portal
-                                pyautogui.click(x=1611, y=901, button='left', clicks=10, interval=.1)
+                # Portal
+                pyautogui.click(x=1611, y=901, button='left', clicks=10, interval=.1)
 
-                                # Alchemy Lab
-                                #pyautogui.click(x=1611, y=836, button='left', clicks=10, interval=.1)
+                # Alchemy Lab
+                #pyautogui.click(x=1611, y=836, button='left', clicks=10, interval=.1)
 
-                                # Shipment
-                                #pyautogui.click(x=1611, y=772, button='left', clicks=10, interval=.1)
+                # Shipment
+                #pyautogui.click(x=1611, y=772, button='left', clicks=10, interval=.1)
 
-                                # Wizard Tower
-                                #pyautogui.click(x=1611, y=711, button='left', clicks=10, interval=.1)
+                # Wizard Tower
+                #pyautogui.click(x=1611, y=711, button='left', clicks=10, interval=.1)
 
-                                # Temple
-                                #pyautogui.click(x=1611, y=645, button='left', clicks=10, interval=.1)
+                # Temple
+                #pyautogui.click(x=1611, y=645, button='left', clicks=10, interval=.1)
 
-                                # Bank
-                                #pyautogui.click(x=1611, y=580, button='left', clicks=10, interval=.1)
+                # Bank
+                #pyautogui.click(x=1611, y=580, button='left', clicks=10, interval=.1)
 
-                                # Factory
-                                #pyautogui.click(x=1611, y=517, button='left', clicks=10, interval=.1)
+                # Factory
+                #pyautogui.click(x=1611, y=517, button='left', clicks=10, interval=.1)
 
-                                # Mine
-                                #pyautogui.click(x=1611, y=449, button='left', clicks=10, interval=.1)
+                # Mine
+                #pyautogui.click(x=1611, y=449, button='left', clicks=10, interval=.1)
 
-                                # Farm
-                                #pyautogui.click(x=1611, y=393, button='left', clicks=10, interval=.1)
+                # Farm
+                #pyautogui.click(x=1611, y=393, button='left', clicks=10, interval=.1)
 
-                                # Grandma
-                                #pyautogui.click(x=1611, y=325, button='left', clicks=10, interval=.1)
-                        
-                                # Clicker
-                                #pyautogui.click(x=1611, y=263, button='left', clicks=10, interval=.1)
+                # Grandma
+                #pyautogui.click(x=1611, y=325, button='left', clicks=10, interval=.1)
 
-                                # Perks
-                                pyautogui.click(x=1392, y=150, button='left', clicks=10, interval=.1)
-                                clicking = True
+                # Clicker
+                #pyautogui.click(x=1611, y=263, button='left', clicks=10, interval=.1)
+
+                # Perks
+                pyautogui.click(x=1392, y=150, button='left', clicks=10, interval=.1)
+                clicking = True
+                time.sleep(seconds_between_buys)
 
 
 # on_press method checks what key is pressed and gives it functionality.
 def on_press(key):
-	global clicking, auto_click
-	global auto_stocks, auto_golden_cookie, auto_shopping, auto_gardening
-	try:
-		
-		# If the 'q' key is pressed the auto clicker is started.
-		if key.char == auto_clicker_start_key:
-			if auto_click:
-				print("Auto clicker is already running")
-				
-			else:
-				auto_click = True
-				clicking = True
-				print("Auto clicker started")
-		
-		# If the 'w' key is pressed the auto clicker is stopped.
-		elif key.char == auto_clicker_stop_key:
-			if auto_click:
-				auto_click = False
-				clicking = False
-				print("Auto clicker stopped")
+        global clicking, auto_click
+        global auto_stocks, auto_golden_cookie, auto_shopping, auto_gardening
+        golden_cookie_search_thread = threading.Thread(target=golden_cookie_search, daemon=True)
+        auto_stock_market_thread = threading.Thread(target=auto_stock_market, daemon=True)
+        auto_shopping_thread = threading.Thread(target=auto_shop, daemon=True)
 
-			else:
-				print("Auto clicker is already inactive")
-		
-		# If the 'a' key is pressed the auto stock market is started.
-		elif key.char == auto_stock_start_key:
-			if auto_stocks:
-				print("Auto stock market is already running")
+        try:
 
-			else:
-				auto_stocks = True
-				print("Auto stock market started")
-	
-		# If the 's' key is pressed the auto stock market is stopped.
-		elif key.char == auto_stock_stop_key:
-			if auto_stocks:
-				auto_stocks = False
-				print("Auto stock market stopped")
+                # If the 'q' key is pressed the auto clicker is started.
+                if key.char == auto_clicker_start_key:
+                        if auto_click:
+                                print("Auto clicker is already running")
+                                
+                        else:
+                                auto_click = True
+                                clicking = True
+                                print("Auto clicker started")
 
-			else:
-				print("Auto stock market is already inactive")
+                # If the 'w' key is pressed the auto clicker is stopped.
+                elif key.char == auto_clicker_stop_key:
+                        if auto_click:
+                                auto_click = False
+                                clicking = False
+                                print("Auto clicker stopped")
 
-		# If the 'z' key is pressed the auto golden cookie is started.
-		elif key.char == auto_golden_cookie_start_key:
-			if auto_golden_cookie:
-				print("Auto golden cookie is already running")
+                        else:
+                                print("Auto clicker is already inactive")
 
-			else:
-				auto_golden_cookie = True
-				print("Auto golden cookie started")
+                # If the 'a' key is pressed the auto stock market is started.
+                elif key.char == auto_stock_start_key:
+                        if auto_stocks:
+                                print("Auto stock market is already running")
 
-		# If the 'x' key is pressed the auto golden cookie is stopped.
-		elif key.char == auto_golden_cookie_stop_key:
-			if auto_golden_cookie:
-				auto_golden_cookie = False
-				print("Auto golden cookie stopped")
+                        else:
+                                auto_stocks = True
+                                print("Auto stock market started")
 
-			else:
-				print("Auto golden cookie is already inactive")
-		
-		# If the 'r' key is pressed the auto shopping is started.
-		elif key.char == auto_shopping_start_key:
-			if auto_shopping:
-				print("Auto shopping is already running")
+                # If the 's' key is pressed the auto stock market is stopped.
+                elif key.char == auto_stock_stop_key:
+                        if auto_stocks:
+                                auto_stocks = False
+                                print("Auto stock market stopped")
 
-			else:
-				auto_shopping = True
-				print("Auto shopping started")
+                        else:
+                                print("Auto stock market is already inactive")
 
-		# If the 't' key is pressed the auto shopping is stopped.
-		elif key.char == auto_shopping_stop_key:
-			if auto_shopping:
-				auto_shopping = False
-				print("Auto shopping stopped")
+                # If the 'z' key is pressed the auto golden cookie is started.
+                elif key.char == auto_golden_cookie_start_key:
+                        if auto_golden_cookie:
+                                print("Auto golden cookie is already running")
 
-			else:
-				print("Auto shopping is already inactive")
+                        else:
+                                auto_golden_cookie = True
+                                print("Auto golden cookie started")
 
-		elif key.char == auto_gardening_start_key:
-			if auto_gardening:
-				print("Auto gardening is already running")
+                # If the 'x' key is pressed the auto golden cookie is stopped.
+                elif key.char == auto_golden_cookie_stop_key:
+                        if auto_golden_cookie:
+                                auto_golden_cookie = False
+                                print("Auto golden cookie stopped")
 
-			else:
-				auto_gardening = True
-				print("Auto gardening started")
+                        else:
+                                print("Auto golden cookie is already inactive")
 
-		elif key.char == auto_gardening_stop_key:
-			if auto_gardening:
-				auto_gardening = False
-				print("Auto gardening stopped")
+                # If the 'r' key is pressed the auto shopping is started.
+                elif key.char == auto_shopping_start_key:
+                        if auto_shopping:
+                                print("Auto shopping is already running")
 
-			else:
-				print("Auto gardening is already inactive")
+                        else:
+                                auto_shopping = True
+                                auto_shopping_thread.start()
+                                print("Auto shopping started")
+
+                # If the 't' key is pressed the auto shopping is stopped.
+                elif key.char == auto_shopping_stop_key:
+                        if auto_shopping:
+                                auto_shopping = False
+                                print("Auto shopping stopped")
+
+                        else:
+                                print("Auto shopping is already inactive")
+
+                elif key.char == auto_gardening_start_key:
+                        if auto_gardening:
+                                print("Auto gardening is already running")
+
+                        else:
+                                auto_gardening = True
+                                print("Auto gardening started")
+
+                elif key.char == auto_gardening_stop_key:
+                        if auto_gardening:
+                                auto_gardening = False
+                                print("Auto gardening stopped")
+
+                        else:
+                                print("Auto gardening is already inactive")
 
 	# Happens when the key pressed is not a standard letter, key like escape.
-	except AttributeError:
-		# If the escape key is pressed the program is terminated.
-		if key == keyboard.Key.esc:
-			print("Terminating Program")
-			return False
+        except AttributeError:
+                # If the escape key is pressed the program is terminated.
+                if key == keyboard.Key.esc:
+                        print("Terminating Program")
+                        return False
 
 
 # Presses into the Cookie Clicker window.
@@ -282,15 +286,12 @@ pyautogui.click(x=cookie_x, y=cookie_y, button='left')
 
 # Creates threads.
 clicker_thread = threading.Thread(target=auto_clicker, daemon=True)
-golden_cookie_search_thread = threading.Thread(target=golden_cookie_search, daemon=True)
-auto_stock_market_thread = threading.Thread(target=auto_stock_market, daemon=True)
-auto_shopping_thread = threading.Thread(target=auto_shop, daemon=True)
+
 
 # Starts threads.
 clicker_thread.start()
-#golden_cookie_search_thread.start()
-#auto_stock_market_thread.start()
-auto_shopping_thread.start()
+
+
 
 # Listens for keyboard inputs.
 with keyboard.Listener(on_press=on_press) as listener:
