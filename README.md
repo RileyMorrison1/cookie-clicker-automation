@@ -18,6 +18,3 @@ Cookie-clicker-automation project is a project to automate all aspects of Cookie
 - 'f': auto gardening start
 - 'g': auto gardening stop
 - esc: quit program
-
-# How to Setup
-
